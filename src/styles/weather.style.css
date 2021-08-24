@@ -1,0 +1,37 @@
+.contain-header-weader-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 0 40px;
+}
+@media screen and (max-width: 1140px) {
+    .contain-header-weader-card {
+        padding: 10px 0 20px;
+    }
+}
+
+.contain-cards {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+@media screen and (max-width: 1140px) {
+    .contain-cards {
+        flex-direction: column;
+    }
+}
+
+.autocomplete-contain {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 40px;
+}
+
+.add-favorite-btn {
+    width: max-content;
+}
+
+.love-icon {
+    margin-left: 5px;
+}

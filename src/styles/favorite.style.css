@@ -1,0 +1,26 @@
+
+.container-favorite-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, 250px);
+    gap: 20px;
+}
+@media screen and (max-width: 800px) {
+    .container-favorite-cards {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+}
+
+
+.close-icon {
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    cursor: pointer;
+    transition: all .3s;
+}
+.close-icon:hover {
+    transform: scale(1.2);
+}
