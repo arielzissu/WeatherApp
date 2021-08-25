@@ -12,7 +12,7 @@ export class LocationService {
 
     static async getCurrentWeather(errorHandler: (err: string, description: string)=>void, locationKey?: string) {
         try {
-            const res = telAvivWeather as CurrentWeatherObj[];
+            const res = {data: telAvivWeather as CurrentWeatherObj[]};
             // const res = await axios.get(`http://dataservice.accuweather.com/currentconditions/v1/${locationKey ?? TEL_AVIV_LOCATION_KEY}?apikey=${API_KEY}`)
             return res;
         } catch (err) {
@@ -33,7 +33,7 @@ export class LocationService {
     static async getDaysOfDailyForecasts(errorHandler: (err:string, description: string)=>void, locationKey?: string) {
         try {
             const res = getDaysOfDailyForecasts as any;
-            // const res = await axios.get(`http://dataservice.accuweather.com/forecasts/v1/daily/5day/${locationKey ?? locationKey}?apikey=${API_KEY}`)
+            // const res = await axios.get(`http://dataservice.accuweather.com/forecasts/v1/daily/5day/${locationKey ?? TEL_AVIV_LOCATION_KEY}?apikey=${API_KEY}`)
             return res;
         } catch (err) {
             errorHandler(err, 'Faild to fetch days of daily forecasts data');

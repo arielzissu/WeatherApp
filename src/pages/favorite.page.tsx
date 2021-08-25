@@ -1,53 +1,39 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from "react-redux";
-import styled from 'styled-components';
-import { WeaderCard } from './weather.page';
-import { Box, Tooltip } from '@material-ui/core';
-import { addFavorite, deleteFavorite } from '../store/actions/favoriteAction';
+import { useHistory } from "react-router-dom";
+import { Box } from '@material-ui/core';
+import { deleteFavorite, saveFavorite } from '../store/actions/favoriteAction';
 import { FavoriteObj } from '../models/weather.model';
-import { Close } from '@material-ui/icons';
-
-export const FavoriteCard = styled(WeaderCard)` && {
-    position: relative;
-    margin-right: 0;
-}`;
+import FavoriteCardsList from '../cmps/favoriteCardList.cmp';
+import { Routes } from '../routes/route';
 
 export function FavoritePage(props: any) {
     const [favoritesData, setFavoritesData] = useState<FavoriteObj[]>([]);
+    const history = useHistory();
 
     useEffect(() => {
-        if (props.favorites?.length > 0) {
+        if (props.favorites) {
             setFavoritesData(props.favorites);
         }
     }, [props.favorites]);
 
-    const onDeleteFavorite = (favoriteId) => {
+    const onDeleteFavorite = (favoriteId: number) => {
         props.deleteFavorite(favoriteId);
     }
 
+    const onClickFavoriteCard = (favorite: FavoriteObj) => {
+        history.push(Routes.WEATHER);
+        props.saveFavorite(favorite);
+    }
 
     return (
-        <section>
-            <Box className="container-favorite-cards">
-                {
-                    favoritesData.length > 0 ? (
-                        favoritesData.map(d => (
-                            <FavoriteCard key={d.id}>
-                                <Tooltip title="Delete">
-                                    <Close className="close-icon" onClick={() => onDeleteFavorite(d.id)} />
-                                </Tooltip>
-                                <Box>{d.LocalizedName}</Box>
-                                <Box>{d.Temperature.Metric.Value} {d.Temperature.Metric.Unit}</Box>
-                            </FavoriteCard>
-                        )))
-                        : (
-                            <Box>
-                                <Box>Empty favorite...</Box>
-                            </Box>
-                        )
-                }
-            </Box>
-        </section>
+        <Box className="container-favorite-cards">
+            <FavoriteCardsList
+                favoritesData={favoritesData}
+                onDeleteFavorite={onDeleteFavorite}
+                onClickFavoriteCard={onClickFavoriteCard}
+            />
+        </Box>
     )
 }
 
@@ -56,8 +42,8 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = {
-    addFavorite,
-    deleteFavorite
+    deleteFavorite,
+    saveFavorite
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(FavoritePage);
