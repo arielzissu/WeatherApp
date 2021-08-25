@@ -1,15 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { Box, TextField, Button, IconButton, Collapse } from '@material-ui/core';
-import { Favorite, Close } from '@material-ui/icons';
+import { Box, TextField, IconButton, Collapse } from '@material-ui/core';
+import { Close } from '@material-ui/icons';
 import { connect } from "react-redux";
 import { addFavorite, saveFavorite } from '../store/actions/favoriteAction';
 import { LocationService } from '../services/location.service';
 import { Autocomplete, Alert } from '@material-ui/lab';
 import { LocationOptionsObj, defaultLocationOptionTLV, CurrentWeatherObj, DailyForecastsObj } from '../models/weather.model';
 import { getRandomArbitrary } from '../utils/getRundomNumber.util';
-import WeaderCardsList from '../cmps/weaderCardsList.cmp';
-import { StyledCard } from '../utils/styledComponents.util';
-import weatherImg from '../assets/imgs/sun.png';
+import WeatherCardDetails from 'src/cmps/weatherCardDetails.cmp';
+
 
 export function WeatherPage(props: any) {
     const [isOpenAlertWarning, setIsOpenAlertWarning] = useState<boolean>(false);
@@ -91,6 +90,8 @@ export function WeatherPage(props: any) {
         }
     }
 
+    const canRenderCardDetails = !!(daysOfDailyForecasts && (searchLocationInput?.length > 0 || currentLocationOption));
+
 
     return (
         <Box height="100%">
@@ -108,46 +109,16 @@ export function WeatherPage(props: any) {
                 />
             </Box>
 
-            {
-                daysOfDailyForecasts && (
-                    <StyledCard variant="outlined" style={props.isDarkMode ? { backgroundColor: 'gray', color: 'white' } : {}}>
-                        <Box className="contain-header-weader-card">
-                            <Box display="flex" alignItems="center">
-                                {
-                                    currentLocationOption &&
-                                    <>
-                                        <Box mr={2} className="weather-icon-contain"><img src={weatherImg} alt="Weather" style={{width: 80, height: 80}}/></Box>
-                                        <Box>
-                                            <Box>{currentLocationOption.LocalizedName}</Box>
-                                            {
-                                                currentWeather &&
-                                                <Box>{currentWeather.Temperature.Metric.Value} {currentWeather.Temperature.Metric.Unit}</Box>
-                                            }
-                                        </Box>
-                                    </>
-                                }
-                            </Box>
+            <WeatherCardDetails
+                daysOfDailyForecasts={daysOfDailyForecasts}
+                isDarkMode={props.isDarkMode}
+                currentWeather={currentWeather}
+                currentLocationOption={currentLocationOption}
+                canRenderCardDetails={canRenderCardDetails}
+                handleAddToFavorite={handleAddToFavorite}
+                isFavoriteWeather={isFavoriteWeather}
+            />
 
-                            <Button className="add-favorite-btn"  style={props.isDarkMode ? { color: 'white' } : {}} onClick={handleAddToFavorite}><Favorite htmlColor={isFavoriteWeather() ? "blue" : ""} className="love-icon" />Add to favorite</Button>
-                        </Box>
-
-                        {
-                            isFavoriteWeather() &&
-                            <Box textAlign="center" mb={3}>
-                                <Box fontSize={'20px'} color="blue" fontWeight="700">In Favorite</Box>
-                            </Box>
-                        }
-
-                        <Box textAlign="center" mb={3}>
-                            <Box fontSize={'20px'}>Scattered cloud</Box>
-                        </Box>
-
-                        <Box className="contain-cards">
-                            <WeaderCardsList daysOfDailyForecasts={daysOfDailyForecasts} />
-                        </Box>
-                    </StyledCard>
-                )
-            }
 
             <Collapse in={isOpenAlertWarning} style={{ position: 'fixed', bottom: 10, left: 10, padding: 10 }}>
                 <Alert

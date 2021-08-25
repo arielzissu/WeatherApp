@@ -13,7 +13,6 @@ function App(props: any) {
     return props.isDarkMode ? { backgroundColor: 'lightgray', color: 'white' } : {};
   }
   
-
   return (
     <BrowserRouter>
       <section className="app-container">

@@ -12,7 +12,7 @@ export class LocationService {
 
     static async getCurrentWeather(errorHandler: (err: string, description: string)=>void, locationKey?: string) {
         try {
-            const res = {data: telAvivWeather as CurrentWeatherObj[]};
+            const res = {data: telAvivWeather as CurrentWeatherObj[]}; //DEMO DATA
             // const res = await axios.get(`http://dataservice.accuweather.com/currentconditions/v1/${locationKey ?? TEL_AVIV_LOCATION_KEY}?apikey=${API_KEY}`)
             return res;
         } catch (err) {
@@ -22,7 +22,7 @@ export class LocationService {
 
     static async getLocationsOptions(q: string, errorHandler: (err:string, description: string)=>void) {
         try {
-            const res = LocationsOptions as any;
+            const res = LocationsOptions as any; //DEMO DATA
             // const res = await axios.get(`http://dataservice.accuweather.com/locations/v1/cities/autocomplete?apikey=${API_KEY}&q=${q}&language=en-us`)
             return res;
         } catch (err) {
@@ -32,7 +32,7 @@ export class LocationService {
 
     static async getDaysOfDailyForecasts(errorHandler: (err:string, description: string)=>void, locationKey?: string) {
         try {
-            const res = getDaysOfDailyForecasts as any;
+            const res = getDaysOfDailyForecasts as any; //DEMO DATA
             // const res = await axios.get(`http://dataservice.accuweather.com/forecasts/v1/daily/5day/${locationKey ?? TEL_AVIV_LOCATION_KEY}?apikey=${API_KEY}`)
             return res;
         } catch (err) {
