@@ -31,7 +31,7 @@ export function WeatherPage(props: any) {
 
     const getCurrentWeather = async (locationKey?: string) => {
         const res = await LocationService.getCurrentWeather(errorHandler, locationKey);
-        const currentWeatherData = res.data[0];
+        const currentWeatherData = res?.data[0];
         setCurrentWeather(currentWeatherData);
     }
     const handleGetDaysOfDailyForecasts = async (value?: LocationOptionsObj) => {

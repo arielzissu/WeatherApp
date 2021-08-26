@@ -13,7 +13,7 @@ type InternalRoute = {
 
 export const Routes = {
     ROOT: '/',
-    WEATHER: '/weather',
+    WEATHER: '/WeatherApp',
     FAVORITE: '/favorite',
 };
 
