@@ -7,7 +7,7 @@ import { LocationService } from '../services/location.service';
 import { Autocomplete, Alert } from '@material-ui/lab';
 import { LocationOptionsObj, defaultLocationOptionTLV, CurrentWeatherObj, DailyForecastsObj } from '../models/weather.model';
 import { getRandomArbitrary } from '../utils/getRundomNumber.util';
-import WeatherCardDetails from 'src/cmps/weatherCardDetails.cmp';
+import WeatherCardDetails from '../cmps/weatherCardDetails.cmp';
 
 
 export function WeatherPage(props: any) {
